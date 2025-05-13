@@ -1,9 +1,10 @@
 Package: GAM.fMRI
-Title: What the Package Does (One Line, Title Case)
+Title: Provide Tools for FMRI Data Analysis
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+    person("Mikolaj", "Molski", , "mikolajm2001@gmail.com", role = c("aut", "cre"))
+Description: A novel approach towards fMRI data science. Provides functions
+    that prepare, fit and model the input data. Alternative to GLM approach.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
