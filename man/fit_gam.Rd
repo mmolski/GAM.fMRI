@@ -2,27 +2,33 @@
 % Please edit documentation in R/fit_gam.R
 \name{fit_gam}
 \alias{fit_gam}
-\title{Function for modelling fMRI data}
+\title{Fitting the GAMs}
 \usage{
 fit_gam(
-  data_frame,
+  data_con_1,
+  data_con_2,
+  data_comb,
   smoothing_basis = "tp",
   number_of_knots = 10,
-  method = "REML"
+  estimating_method = "REML"
 )
 }
 \arguments{
-\item{data_frame}{A processed data frame}
+\item{data_con_1}{Data frame for condition 1}
 
-\item{smoothing_basis}{A smoothing function used for modelling}
+\item{data_con_2}{Data frame for condition 2}
 
-\item{number_of_knots}{A number of knots used for local smoothing}
+\item{data_comb}{Data frame for combined conditions}
 
-\item{method}{A method of estimation}
+\item{smoothing_basis}{Smooth term}
+
+\item{number_of_knots}{Basis dimension choice for smooths}
+
+\item{estimating_method}{The smoothing parameter estimation method}
 }
 \value{
-A model
+List of 3 models.
 }
 \description{
-Function for modelling fMRI data
+Fitting the GAMs
 }
