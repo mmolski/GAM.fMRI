@@ -21,7 +21,7 @@ fit_gam(
 \item{method}{A method of estimation}
 }
 \value{
-A mdoel
+A model
 }
 \description{
 Function for modelling fMRI data
