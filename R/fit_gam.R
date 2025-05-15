@@ -1,4 +1,5 @@
-#' Fitting the GAMs
+#' Function fitting the GAMs to previously pre-processed data.
+#'
 #'
 #' @param data_con_1 Data frame for condition 1
 #' @param data_con_2 Data frame for condition 2
@@ -7,7 +8,7 @@
 #' @param number_of_knots Basis dimension choice for smooths
 #' @param estimating_method The smoothing parameter estimation method
 #'
-#' @returns List of 3 models.
+#' @returns List of 3 gam models, one for the first condition, one for second, and one for combined case scenario.
 #' @export
 #'
 fit_gam <- \(data_con_1, data_con_2, data_comb, smoothing_basis = "tp", number_of_knots = 10, estimating_method = "REML"){
