@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_gam.R
 \name{fit_gam}
 \alias{fit_gam}
-\title{Fitting the GAMs}
+\title{Function fitting the GAMs to previously pre-processed data.}
 \usage{
 fit_gam(
   data_con_1,
@@ -27,8 +27,8 @@ fit_gam(
 \item{estimating_method}{The smoothing parameter estimation method}
 }
 \value{
-List of 3 models.
+List of 3 GAM models, one for the first condition, one for second, and one for combined case scenario.
 }
 \description{
-Fitting the GAMs
+Function fitting the GAMs to previously pre-processed data.
 }

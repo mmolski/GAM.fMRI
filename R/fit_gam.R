@@ -8,7 +8,7 @@
 #' @param number_of_knots Basis dimension choice for smooths
 #' @param estimating_method The smoothing parameter estimation method
 #'
-#' @returns List of 3 gam models, one for the first condition, one for second, and one for combined case scenario.
+#' @returns List of 3 GAM models, one for the first condition, one for second, and one for combined case scenario.
 #' @export
 #'
 fit_gam <- \(data_con_1, data_con_2, data_comb, smoothing_basis = "tp", number_of_knots = 10, estimating_method = "REML"){
