@@ -12,28 +12,30 @@
 #'
 prepare_data <- \(data_gz, cond_1_txt, cond_2_txt, x, y, z){
 
+  # Setting up some objects
+
   TR <- data_gz$pixdim[5] # Time to repetition
   c1_time_in_TR <- cond_1_txt[,1]/TR
   c2_time_in_TR <- cond_2_txt[,1]/TR
   num_post <- 10 # Time between each stimulus of particular condition divided by the length of one TR
-
   c1_len <- length(c1_time_in_TR)
+  c2_len <- length(c2_time_in_TR)
   c1_trials = matrix(NA, nrow = c1_len, ncol = num_post)
+  c2_trials = matrix(NA, nrow = c2_len, ncol = num_post)
+  TRs_vector <- paste(1:10)
+  Atts_vec <- paste(1:20, "trial")
+  colnames(c1_trials) <- colnames(c2_trials) <- TRs_vector
+  rownames(c1_trials) <- rownames(c2_trials) <- Atts_vec
+
   for(i in 1:c1_len) {
-    c1_trials[i,] = dat[x,y,z,c1_time_in_TR[i]:(c1_time_in_TR[i] + num_post - 1)]  # Additional explanation
+    c1_trials[i,] = dat[x,y,z,c1_time_in_TR[i]:(c1_time_in_TR[i] + num_post - 1)]
   }
 
-  c2_len <- length(c2_time_in_TR)
-  c2_trials = matrix(NA, nrow = c2_len, ncol = num_post)
   for(i in 1:c2_len) {
     c2_trials[i,] = dat[x,y,z,c2_time_in_TR[i]:(c2_time_in_TR[i] + num_post - 1)]
   }
 
-  TRs_vector <- paste(1:10)
-  Atts_vec <- paste(1:20, "trial")
-
-  colnames(c1_trials) <- colnames(c2_trials) <- TRs_vector
-  rownames(c1_trials) <- rownames(c2_trials) <- Atts_vec
+  # Wide to long format
 
   long_data_c1 <- pivot_longer(as.data.frame(c1_trials),
                                cols = all_of(TRs_vector),
