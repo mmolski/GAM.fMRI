@@ -84,8 +84,6 @@ prepare_data <- \(data_gz, cond_1_txt, cond_2_txt, x, y, z) {
   long_data_combined$condition <- as.factor(long_data_combined$condition)
 
   return(
-    list(
-      "comb" = long_data_combined
-    )
+    long_data_combined
   )
 }

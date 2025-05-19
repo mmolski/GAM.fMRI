@@ -15,6 +15,7 @@ fit_gam <- \(
   number_of_knots = 10,
   estimating_method = "REML"
 ) {
+
   gam_comb_no_cond <- gam(
     fMRI_values ~ s(Time_to_Repetition, bs = smoothing_basis, k = number_of_knots)
     + s(base_values, bs = smoothing_basis, k = number_of_knots)

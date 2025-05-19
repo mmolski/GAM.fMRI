@@ -17,6 +17,7 @@ Imports:
     ggplot2,
     matrixStats,
     mgcv,
-    tidyr
+    tidyr,
+    magrittr
 Suggests: 
 Config/testthat/edition: 3

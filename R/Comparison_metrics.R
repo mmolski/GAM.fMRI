@@ -1,12 +1,12 @@
 #' Function comparing GAMs by different metrics
 #'
-#' @param gam_comb_cond Model which includes condition as a factor
-#' @param gam_comb_no_cond Model which does not include condition as a factor
+#' @param model_cond Model which includes condition as a factor
+#' @param model_no_cond Model which does not include condition as a factor
 #'
 #' @returns A data frame with different metrics by which one can compare two different models
 #' @export
 #'
-comparison_metrics <- \(gam_comb_cond, gam_comb_no_cond) {
+comparison_metrics <- \(model_cond, model_no_cond) {
   df_all_metrics <- data.frame(
     AIC_cond = AIC(model_cond),
     AIC_no_cond = AIC(model_no_cond),
