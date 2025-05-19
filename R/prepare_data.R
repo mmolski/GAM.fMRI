@@ -6,6 +6,7 @@
 #' @param x First dimension
 #' @param y Second dimension
 #' @param z Third dimension
+#' @param num_post_TR Number of TR's over which the data is gathered once stimulus is presented
 #'
 #' @returns A polished data set prepared for modelling
 #'

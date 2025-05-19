@@ -5,5 +5,5 @@
 #' @importFrom mgcv gam s ti residuals.gam
 #' @importFrom utils capture.output
 #' @importFrom itsadug compareML
-#' @importFrom stats AIC BIC
+#' @importFrom stats AIC BIC predict
 NULL
