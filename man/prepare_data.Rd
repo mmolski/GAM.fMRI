@@ -4,7 +4,7 @@
 \alias{prepare_data}
 \title{Function preparing a data frame for the further analysis}
 \usage{
-prepare_data(data_gz, cond_1_txt, cond_2_txt, x, y, z)
+prepare_data(data_gz, cond_1_txt, cond_2_txt, x, y, z, num_post_TR = 10)
 }
 \arguments{
 \item{data_gz}{Main data file (.gz extension) with BOLD signal values}

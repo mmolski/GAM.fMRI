@@ -36,8 +36,8 @@ fit_gam <- \(
 
   return(
     list(
-      "combined condition" = gam_comb_cond,
-      "combined no condition" = gam_comb_no_cond
+      "combined_condition" = gam_comb_cond,
+      "combined_no_condition" = gam_comb_no_cond
     )
   )
 }
