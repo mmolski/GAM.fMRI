@@ -15,9 +15,9 @@ BugReports: https://github.com/mmolski/GAM.fMRI/issues
 Imports:
     dplyr,
     ggplot2,
-    matrixStats,
     mgcv,
     tidyr,
-    magrittr
+    magrittr,
+    itsadug
 Suggests: 
 Config/testthat/edition: 3

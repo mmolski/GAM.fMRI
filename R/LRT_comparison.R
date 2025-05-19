@@ -8,6 +8,6 @@
 LRT_comparison <- \(gam_comb_cond, gam_comb_no_cond) {
 
   invisible(capture.output(result_LRT <- compareML(gam_comb_no_cond, gam_comb_cond)))
-  LRT_result <- result_LRT$table[2,6]
+  LRT_result <- result_LRT$table[2,6] %>% as.numeric()
   return(LRT_result)
 }
