@@ -4,7 +4,13 @@
 \alias{predict_gam}
 \title{Function predicting the interpolated values of fMRI}
 \usage{
-predict_gam(data_comb, gam_comb_cond, gam_comb_no_cond, no_of_inter = 100)
+predict_gam(
+  data_comb,
+  gam_comb_cond,
+  gam_comb_no_cond,
+  no_of_inter = 100,
+  CI = 0.05
+)
 }
 \arguments{
 \item{data_comb}{Data frame for combined conditions}
@@ -14,6 +20,8 @@ predict_gam(data_comb, gam_comb_cond, gam_comb_no_cond, no_of_inter = 100)
 \item{gam_comb_no_cond}{Model which does not include condition as a factor}
 
 \item{no_of_inter}{Number of interpolated values}
+
+\item{CI}{Confidence interval for the plot drawing}
 }
 \value{
 A matrix with predictions for both models.

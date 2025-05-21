@@ -18,6 +18,8 @@ prepare_data(data_gz, cond_1_txt, cond_2_txt, x, y, z, num_post_TR = 10)
 \item{y}{Second dimension}
 
 \item{z}{Third dimension}
+
+\item{num_post_TR}{Number of TR's over which the data is gathered once stimulus is presented}
 }
 \value{
 A polished data set prepared for modelling

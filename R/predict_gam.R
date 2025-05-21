@@ -64,9 +64,24 @@ predict_gam <- \(data_comb, gam_comb_cond, gam_comb_no_cond, no_of_inter = 100, 
   # Plotting predictions
 
   df_pred_plot <- data.frame(
-    Time_to_Repetition =
+    TR_vec = intrapolation_seq,
+    fit_cond = Avg_pred_gams_combined_cond,
+    fit_no_cond = Avg_pred_gams_combined_no_cond,
+    upper_cond = Upper_ci_combined_cond,
+    lower_cond = Lower_ci_combined_cond,
+    upper_no_cond = Upper_ci_combined_no_cond,
+    lower_no_cond = Lower_ci_combined_no_cond
   )
-  pred_plot <- ggplot()
+
+  pred_plot <- ggplot(df_pred_plot, aes(x = TR_vec)) +
+    geom_line(aes(y = fit_cond), color = "skyblue2")  +
+    geom_line(aes(y = upper_cond), color = "skyblue2", linetype = "dashed", alpha = 0.5, size = 1) +
+    geom_line(aes(y = lower_cond), color = "skyblue2", linetype = "dashed", alpha = 0.5, size = 1) +
+    geom_line(aes(y = fit_no_cond), color = "red3")  +
+    geom_line(aes(y = upper_no_cond), color = "red3", linetype = "dashed", alpha = 0.5, size = 1) +
+    geom_line(aes(y = lower_no_cond), color = "red3", linetype = "dashed", alpha = 0.5, size = 1) +
+    labs(x = "Time to repetition (TR)", y = "BOLD signal", title = "GAM fit comparison") +
+    theme_classic()
 
   return(list("prediction_matrix" = predict_matrix, "prediction_plot" = pred_plot))
 }
