@@ -127,30 +127,29 @@ predict_and_plot_gam <- \(
   Upper_ci_combined_no_cond <- Avg_pred_gams_combined_no_cond + CI_val * SE_pred_gams_combined_no_cond
   Lower_ci_combined_no_cond <- Avg_pred_gams_combined_no_cond - CI_val * SE_pred_gams_combined_no_cond
 
-  nonoverlap_index_con <-
-    if (Avg_pred_gams_con_1[50] > Avg_pred_gams_con_2[50]) {
-      which(Lower_ci_con_1 > Upper_ci_con_2)
-    } else {
-      which(Lower_ci_con_2 > Upper_ci_con_1)
-    }
+  diffs_con <- Avg_pred_gams_con_1 - Avg_pred_gams_con_2
+  diffs_comb <- Avg_pred_gams_combined_cond - Avg_pred_gams_combined_no_cond
+  ind_con <- ind_comb <- numeric(no_of_inter)
 
-  diffs = Avg_pred_gams_con_1 - Avg_pred_gams_con_2
-  ind = numeric(no_of_inter)
   for(i in 1:no_of_inter) {
-    if(diffs[i]>0) {
-      if(Upper_ci_con_2[i] <  Lower_ci_con_1[i]) ind[i] = 1
+    if(diffs_con[i] > 0) {
+      if(Upper_ci_con_2[i] <  Lower_ci_con_1[i]) ind_con[i] = 1
+    } else if (diffs_con[i] < 0) {
+      if(Lower_ci_con_2[i] > Upper_ci_con_1[i]) ind_con[i] = 1
     }
-
-    if(diffs[i]<0) {
-      if(Lower_ci_con_2[i] > Upper_ci_con_1[i]) ind[i] = 1
-    }
-
   }
 
-  indvec = which(ind == 1)
+  for(i in 1:no_of_inter) {
+    if(diffs_comb[i] > 0) {
+      if(Upper_ci_combined_no_cond[i] <  Lower_ci_combined_cond[i]) ind_comb[i] = 1
+    } else if (diffs_comb[i] < 0) {
+      if(Lower_ci_combined_no_cond[i] > Upper_ci_combined_cond[i]) ind_comb[i] = 1
+    }
+  }
 
-  nonoverlap_index_comb <- which(Lower_ci_combined_cond > Upper_ci_combined_no_cond)
-  # Assuming that condition is always picked up by the model
+  nonoverlap_index_con <- which(ind_con == 1)
+
+  nonoverlap_index_comb <- which(ind_comb == 1)
 
   # browser()
   # Plotting predictions
@@ -212,7 +211,7 @@ predict_and_plot_gam <- \(
     ) +
 
     geom_rug(
-      data = data.frame(non_tr_vec = intrapolation_seq[indvec]),
+      data = data.frame(non_tr_vec = intrapolation_seq[nonoverlap_index_con]),
       aes(x = non_tr_vec),
       sides = "b",
       inherit.aes = TRUE,
