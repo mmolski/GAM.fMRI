@@ -11,7 +11,7 @@
 #' @param no_of_inter Number of interpolated values
 #' @param CI Confidence interval for the plot drawing
 #'
-#' @returns A matrix with predictions for both models.
+#' @returns Two prediction matrices and two plots.
 #' @export
 #'
 predict_and_plot_gam <- \(
