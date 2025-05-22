@@ -1,9 +1,9 @@
 Package: GAM.fMRI
 Title: Provide Tools for FMRI Data Analysis
-Version: 1,0
+Version: 1.0
 Depends: R (>= 4.1.0)
 Authors@R: 
-    person("Mikolaj", "Molski", "mikolajm2001@gmail.com", role = c("aut", "cre"))
+    person("Mikolaj", "Molski", , "mikolajm2001@gmail.com", role = c("aut", "cre"))
 Description: A novel approach towards fMRI data science. Provides functions
     that prepare, fit and model the input data. Alternative to GLM approach.
 License: MIT + file LICENSE

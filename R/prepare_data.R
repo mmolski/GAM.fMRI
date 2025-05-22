@@ -81,7 +81,7 @@ prepare_data <- \(data_gz, cond_1_txt, cond_2_txt, x, y, z, num_post_TR = 10) {
   long_data_combined <- bind_rows(long_data_c1_extra, long_data_c2_extra)
   long_data_combined$condition <- as.factor(long_data_combined$condition)
 
-  return(
-    long_data_combined
-  )
+  return(list("con_1" = long_data_c1_extra,
+              "con_2" = long_data_c2_extra,
+              "con_comb" = long_data_combined))
 }
