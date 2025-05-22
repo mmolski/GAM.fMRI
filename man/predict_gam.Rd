@@ -5,7 +5,11 @@
 \title{Function predicting the interpolated values of fMRI}
 \usage{
 predict_gam(
+  data_con_1,
+  data_con_2,
   data_comb,
+  gam_con_1,
+  gam_con_2,
   gam_comb_cond,
   gam_comb_no_cond,
   no_of_inter = 100,
@@ -13,7 +17,15 @@ predict_gam(
 )
 }
 \arguments{
+\item{data_con_1}{Data frame for first conditions}
+
+\item{data_con_2}{Data frame for second conditions}
+
 \item{data_comb}{Data frame for combined conditions}
+
+\item{gam_con_1}{Model which includes first condition only}
+
+\item{gam_con_2}{Model which includes second condition only}
 
 \item{gam_comb_cond}{Model which includes condition as a factor}
 

@@ -127,26 +127,95 @@ predict_gam <- \(
   Upper_ci_combined_no_cond <- Avg_pred_gams_combined_no_cond + CI_val * SE_pred_gams_combined_no_cond
   Lower_ci_combined_no_cond <- Avg_pred_gams_combined_no_cond - CI_val * SE_pred_gams_combined_no_cond
 
-  nonoverlap_index_con <- which(Lower_ci_con_1 < Upper_ci_con_2 |
-                                  Lower_ci_con_2 < Upper_ci_con_1)
+  nonoverlap_index_con <-
+    if (Avg_pred_gams_con_1[50] > Avg_pred_gams_con_2[50]) {
+      which(Lower_ci_con_1 < Upper_ci_con_2)
+    } else {
+      which(Lower_ci_con_2 < Upper_ci_con_1)
+    }
 
-  nonoverlap_index_comb <- which(Lower_ci_combined_cond < Upper_ci_combined_no_cond |
-                                   Lower_ci_combined_no_cond < Upper_ci_combined_cond)
+  nonoverlap_index_comb <- which(Lower_ci_combined_cond < Upper_ci_combined_no_cond)
+  # Assuming that condition is always picked up by the model
 
   # Plotting predictions
 
-  df_pred_plot <- data.frame(
+  df_pred_plot_con <- data.frame(
+    TR_vec = intrapolation_seq,
+    fit_con_1 = Avg_pred_gams_con_1,
+    fit_con_2 = Avg_pred_gams_con_2,
+    upper_con_1 = Upper_ci_con_1,
+    lower_con_1 = Lower_ci_con_1,
+    upper_con_2 = Upper_ci_con_2,
+    lower_con_2 = Lower_ci_con_2
+  )
+
+  df_pred_plot_comb <- data.frame(
     TR_vec = intrapolation_seq,
     fit_cond = Avg_pred_gams_combined_cond,
     fit_no_cond = Avg_pred_gams_combined_no_cond,
     upper_cond = Upper_ci_combined_cond,
     lower_cond = Lower_ci_combined_cond,
     upper_no_cond = Upper_ci_combined_no_cond,
-    lower_no_cond = Lower_ci_combined_no_cond,
-    nonoverlap_TRs_comb = intrapolation_seq[nonoverlap_index_comb]
+    lower_no_cond = Lower_ci_combined_no_cond
   )
 
-  pred_plot <- ggplot(df_pred_plot, aes(x = TR_vec)) +
+
+
+  pred_plot_con <- ggplot(df_pred_plot_con, aes(x = TR_vec)) +
+    geom_line(aes(y = fit_con_1, color = "Condition 1"), size = 1.4)  +
+    geom_line(
+      aes(y = upper_con_1, color = "Condition 1"),
+      linetype = "dashed",
+      alpha = 0.5,
+      size = 1
+    ) +
+    geom_line(
+      aes(y = lower_con_1, color = "Condition 1"),
+      linetype = "dashed",
+      alpha = 0.5,
+      size = 1
+    ) +
+
+    geom_line(aes(y = fit_con_2, color = "Condition 2"), size = 1.4)  +
+    geom_line(
+      aes(y = upper_con_2, color = "Condition 2"),
+      linetype = "dashed",
+      alpha = 0.5,
+      size = 1
+    ) +
+    geom_line(
+      aes(y = lower_con_2, color = "Condition 2"),
+      linetype = "dashed",
+      alpha = 0.5,
+      size = 1
+    ) +
+
+    scale_color_manual(
+      name = "Model Type",
+      values = c("Condition 1" = "skyblue1", "Condition 2" = "red2")
+    ) +
+
+    geom_rug(
+      data = data.frame(non_tr_vec = intrapolation_seq[nonoverlap_index_con]),
+      aes(x = non_tr_vec),
+      sides = "b",
+      inherit.aes = TRUE,
+      color = "black",
+      alpha = 0.7,
+      length = unit(0.05, "npc")
+    ) +
+
+    scale_x_continuous(breaks = seq(1, num_TR_post, by = 1)) +
+    labs(x = "Time to repetition (TR)", y = "BOLD signal", title = "GAM fit comparison between conditions") +
+    theme_bw() +
+    theme(
+      plot.title = element_text(size = 18, hjust = 0.5),
+      legend.title = element_text(size = 14),
+      legend.text = element_text(size = 12),
+      legend.position = "bottom"
+    )
+
+  pred_plot_comb <- ggplot(df_pred_plot_comb, aes(x = TR_vec)) +
     geom_line(aes(y = fit_cond, color = "Condition"), size = 1.4)  +
     geom_line(
       aes(y = upper_cond, color = "Condition"),
@@ -181,7 +250,8 @@ predict_gam <- \(
     ) +
 
     geom_rug(
-      aes(x = nonoverlap_TRs_comb),
+      data = data.frame(non_tr_vec = intrapolation_seq[nonoverlap_index_comb]),
+      aes(x = non_tr_vec),
       sides = "b",
       inherit.aes = TRUE,
       color = "black",
@@ -190,7 +260,7 @@ predict_gam <- \(
     ) +
 
     scale_x_continuous(breaks = seq(1, num_TR_post, by = 1)) +
-    labs(x = "Time to repetition (TR)", y = "BOLD signal", title = "GAM fit comparison") +
+    labs(x = "Time to repetition (TR)", y = "BOLD signal", title = "GAM fit comparison for combined models") +
     theme_bw() +
     theme(
       plot.title = element_text(size = 18, hjust = 0.5),
@@ -200,7 +270,9 @@ predict_gam <- \(
     )
 
   return(list(
-    "prediction_matrix" = predict_matrix,
-    "prediction_plot" = pred_plot
+    "prediction_matrix_con" = predict_matrix_con,
+    "prediction_matrix_comb" = predict_matrix_comb,
+    "prediction_plot_con" = pred_plot_con,
+    "prediction_plot_comb" = pred_plot_comb
   ))
 }

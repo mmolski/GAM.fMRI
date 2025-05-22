@@ -5,6 +5,8 @@
 \title{Function fitting the GAMs to previously pre-processed data.}
 \usage{
 fit_gam(
+  data_con_1,
+  data_con_2,
   data_comb,
   smoothing_basis = "tp",
   number_of_knots = 10,
@@ -12,6 +14,10 @@ fit_gam(
 )
 }
 \arguments{
+\item{data_con_1}{Data frame for condition 1}
+
+\item{data_con_2}{Data frame for condition 2}
+
 \item{data_comb}{Data frame for combined conditions}
 
 \item{smoothing_basis}{Smooth term}
@@ -21,7 +27,7 @@ fit_gam(
 \item{estimating_method}{The smoothing parameter estimation method}
 }
 \value{
-List of 2 GAM models. One including condition as a factor and one not.
+List of 4 GAM models. First was fit to data containing condition 1 only, second condition2 only. Next two intake combined data set, once fitted considering conditions and once not.
 }
 \description{
 Function fitting the GAMs to previously pre-processed data.
