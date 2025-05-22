@@ -129,12 +129,12 @@ predict_gam <- \(
 
   nonoverlap_index_con <-
     if (Avg_pred_gams_con_1[50] > Avg_pred_gams_con_2[50]) {
-      which(Lower_ci_con_1 < Upper_ci_con_2)
+      which(Lower_ci_con_1 > Upper_ci_con_2)
     } else {
-      which(Lower_ci_con_2 < Upper_ci_con_1)
+      which(Lower_ci_con_2 > Upper_ci_con_1)
     }
 
-  nonoverlap_index_comb <- which(Lower_ci_combined_cond < Upper_ci_combined_no_cond)
+  nonoverlap_index_comb <- which(Lower_ci_combined_cond > Upper_ci_combined_no_cond)
   # Assuming that condition is always picked up by the model
 
   # Plotting predictions
