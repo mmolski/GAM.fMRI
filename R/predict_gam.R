@@ -14,7 +14,7 @@
 #' @returns A matrix with predictions for both models.
 #' @export
 #'
-predict_gam <- \(
+predict_and_plot_gam <- \(
   data_con_1,
   data_con_2,
   data_comb,
