@@ -82,7 +82,7 @@ predict_gam <- \(
     Var_pred_gams_con_2[i] <- var(temp_avg)
     Avg_pred_gams_con_2[i] <- mean(temp_avg)
   }
-#HELLO WORLD
+
   for (i in 1:length(intrapolation_seq)) {
     temp_avg <- numeric(length = nrow(data_comb) / 10)
     for (j in 1:(nrow(data_comb) / 10)) {
