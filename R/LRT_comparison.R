@@ -12,5 +12,7 @@ LRT_comparison <- \(gam_comb_cond, gam_comb_no_cond) {
   if (is.na(LRT_result)) {
     LRT_result = 1
   }
+
+  # browser()
   return(LRT_result)
 }

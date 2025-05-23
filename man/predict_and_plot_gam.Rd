@@ -36,7 +36,7 @@ predict_and_plot_gam(
 \item{CI}{Confidence interval for the plot drawing}
 }
 \value{
-A matrix with predictions for both models.
+Two prediction matrices and two plots.
 }
 \description{
 Function predicting the interpolated values of fMRI
