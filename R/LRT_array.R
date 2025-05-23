@@ -12,24 +12,29 @@ LRT_array <- \(data_gz, cond_1_txt, cond_2_txt) {
   ydim <- dim(data_gz)[2]
   zdim <- dim(data_gz)[3]
   lrt_array <- array(NA, dim = c(xdim, ydim, zdim))
+  map <- apply(data_gz$data, c(1, 2, 3), function(x) ! all(x == x[1], na.rm = T))
 
-  pb <- txtProgressBar(min = 0, max = xdim, style = 3)
+  mv <- as.numeric(table(map)[2])
+  pc <- 1
 
   for (i in 1:xdim) {
-    for (j in 1:ydim){
+    for (j in 1:ydim) {
       for (k in 1:zdim) {
 
-        temp_data <- prepare_data(data_gz, cond_1_txt, cond_2_txt, i, j, k)
-        if (!(any(temp_data$fMRI_values == 0))) {
-          temp_fit <- fit_gam(temp_data)
-          temp_lrt <- LRT_comparison(temp_fit$combined_condition, temp_fit$combined_no_condition)
-          lrt_array[i,j,k] <- temp_lrt
-        }
 
+        if(map[i,j,k] == TRUE) {
+          cat(paste0(Sys.time()),': processing voxel',pc,'out of',mv,'@ (x,y,z)=',i,j,k,'\n')
+
+          temp_data <- prepare_data(data_gz, cond_1_txt, cond_2_txt, i, j, k)
+          temp_fit <- try(fit_gam(temp_data$con_1, temp_data$con_2, temp_data$con_comb), silent = T)
+          if (class(temp_fit) != 'try-error') {
+            temp_lrt <- LRT_comparison(temp_fit$combined_condition, temp_fit$combined_no_condition)
+            lrt_array[i, j, k] <- temp_lrt
+          }
+          pc = pc + 1
+        }
       }
     }
-    setTxtProgressBar(pb, i)
   }
-  close(pb)
   return(lrt_array)
 }
