@@ -7,4 +7,5 @@
 #' @importFrom itsadug compareML
 #' @importFrom stats AIC BIC predict var qnorm
 #' @importFrom grid unit
+#' @importFrom niftiR6 writeNifti
 NULL
