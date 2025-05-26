@@ -21,26 +21,36 @@ SPM_preparation <- \(data_gz, lrt_array, dfs_model_comp = 5) {
   # Transforming to Z-values
   data_gz_val <- data_gz$clone()
 
+  org_dims <- dim(lrt_array)
   df <- dfs_model_comp
-  qchisq(0.05, df = 5, lower.tail = FALSE)
+  lrt_z <- p.adjust(lrt_array, method = "hochberg")
+  lrt_z_adj <- array(lrt_z, dim = org_dims)
 
-  lrt_z <- lrt_array
+  # browser()
 
-  for (i in 1:dim(lrt_z)[1]) {
-    for (j in 1:dim(lrt_z)[2]) {
-      for (k in 1:dim(lrt_z)[3]) {
-        lrt_z[i,j,k] <- qchisq(lrt_array[i,j,k], df = 5, lower.tail = FALSE)
+  for (i in 1:dim(lrt_z_adj)[1]) {
+    for (j in 1:dim(lrt_z_adj)[2]) {
+      for (k in 1:dim(lrt_z_adj)[3]) {
+        lrt_z_adj[i,j,k] <- qchisq(lrt_z_adj[i,j,k], df = 5, lower.tail = FALSE)
           }
         }
       }
 
-  data_gz_val$setData(lrt_z)
-  data_gz_val$changeName('LRT_zvals')
+  data_gz_val$setData(lrt_z_adj)
+  data_gz_val$changeName('LRT_zvals_adj')
   writeNifti(data_gz_val)
+
+  # Binarizing
+  data_gz_bin <- data_gz$clone()
+
+  data_gz_bin$setData(as.numeric(lrt_z_adj < qchisq(0.05, df = 5, lower.tail = FALSE)))
+  data_gz_bin$changeName('LRT_binarized')
+  writeNifti(data_gz_bin)
 
   return(list(
     "p-vals" = data_gz,
-    "Z-vals" = data_gz_val
+    "Z-vals" = data_gz_val,
+    "Bin-vals" = data_gz_bin
   ))
 }
 

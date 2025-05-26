@@ -19,6 +19,7 @@ Imports:
     tidyr,
     magrittr,
     itsadug,
-    niftiR6
+    niftiR6,
+    patchwork
 Suggests: 
 Config/testthat/edition: 3
