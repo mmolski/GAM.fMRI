@@ -12,7 +12,7 @@ You can install the development version of GAM.fMRI from [GitHub](https://github
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("https://github.com/mmolski/GAM.fMRI")
+devtools::install_github("mmolski/GAM.fMRI")
 ```
 
 ## Example
