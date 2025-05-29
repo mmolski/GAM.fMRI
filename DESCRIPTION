@@ -20,6 +20,7 @@ Imports:
     magrittr,
     itsadug,
     niftiR6,
-    patchwork
+    patchwork,
+    utils
 Suggests: 
 Config/testthat/edition: 3

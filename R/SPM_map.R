@@ -1,15 +1,17 @@
-#' Function which produces SPMs
+#' Function which produces Statistical Parametric Maps
 #'
 #' @param data_gz_val Main data file (.gz extension) with BOLD signal values.
 #' @param x x dimension of a map
 #' @param y y dimension of a map
 #' @param z z dimension of a map
 #' @param prediction_plot_con The prediction plot of condition1 vs condition2 for a given voxel.
+#' @param not_show_legend Option for legend of the whole plot
+#' @param map_colour Colour of the map
 #'
 #' @returns An ggplot object (SPM)
 #' @export
 #'
-SPM_map <- \(data_gz_val,  x, y, z, prediction_plot_con, not_show_legend = NULL) {
+SPM_map <- \(data_gz_val,  x, y, z, prediction_plot_con = NULL, not_show_legend = NULL, map_colour = "plasma") {
 
   # Extracting dimensions
 
@@ -38,7 +40,7 @@ SPM_map <- \(data_gz_val,  x, y, z, prediction_plot_con, not_show_legend = NULL)
 
   p_xy <- ggplot(xy_slice_data, aes(x = x, y = y, fill = value)) +
     geom_raster() +
-    scale_fill_viridis_c(option = "plasma", name = "Z-value") +
+    scale_fill_viridis_c(option = map_colour, name = "Z-value") +
     geom_point(data = point_data, aes(x = x, y = y),
                color = 'red3', shape = 4, size = 2, stroke = 1.5, inherit.aes = FALSE) +
     labs(title = paste0("Brain slice (Z = ", z, ")"), x = "X", y = "Y") +
@@ -49,7 +51,7 @@ SPM_map <- \(data_gz_val,  x, y, z, prediction_plot_con, not_show_legend = NULL)
 
   p_xz <- ggplot(xz_slice_data, aes(x = x, y = z, fill = value)) +
     geom_raster() +
-    scale_fill_viridis_c(option = "plasma", name = "Z-value") +
+    scale_fill_viridis_c(option = map_colour, name = "Z-value") +
     geom_point(data = point_data, aes(x = x, y = z),
                color = 'red3', shape = 4, size = 2, stroke = 1.5, inherit.aes = FALSE) +
     labs(title = paste0("Brain slice (Y = ", y, ")"), x = "X", y = "Z") +
@@ -60,7 +62,7 @@ SPM_map <- \(data_gz_val,  x, y, z, prediction_plot_con, not_show_legend = NULL)
 
   p_yz <- ggplot(yz_slice_data, aes(x = y, y = z, fill = value)) +
     geom_raster() +
-    scale_fill_viridis_c(option = "plasma", name = "Z-value") +
+    scale_fill_viridis_c(option = map_colour, name = "Z-value") +
     geom_point(data = point_data, aes(x = y, y = z),
                color = 'red3', shape = 4, size = 2, stroke = 1.5, inherit.aes = FALSE) +
     labs(title = paste0("Brain slice (X = ", x, ")"), x = "Y", y = "Z") +
@@ -69,10 +71,13 @@ SPM_map <- \(data_gz_val,  x, y, z, prediction_plot_con, not_show_legend = NULL)
     theme(plot.title = element_text(size = 10, hjust = 0.5),
           legend.position = "none")
 
-  prediction_plot_con <- prediction_plot_con +
-    theme(plot.title = element_text(size = 12, hjust = 0.5),
-          legend.title = element_text(size = 12),
-          legend.text = element_text(size = 10))
+  if (!is.null(prediction_plot_con)) {
+    prediction_plot_con <- prediction_plot_con +
+      theme(plot.title = element_text(size = 12, hjust = 0.5),
+            legend.title = element_text(size = 12),
+            legend.text = element_text(size = 10))
+  }
+
 
   # Combining plots
 

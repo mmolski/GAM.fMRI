@@ -2,9 +2,17 @@
 % Please edit documentation in R/SPM_map.R
 \name{SPM_map}
 \alias{SPM_map}
-\title{Function which produces SPMs}
+\title{Function which produces Statistical Parametric Maps}
 \usage{
-SPM_map(data_gz_val, x, y, z, prediction_plot_con, not_show_legend = NULL)
+SPM_map(
+  data_gz_val,
+  x,
+  y,
+  z,
+  prediction_plot_con = NULL,
+  not_show_legend = NULL,
+  map_colour = "plasma"
+)
 }
 \arguments{
 \item{data_gz_val}{Main data file (.gz extension) with BOLD signal values.}
@@ -16,10 +24,14 @@ SPM_map(data_gz_val, x, y, z, prediction_plot_con, not_show_legend = NULL)
 \item{z}{z dimension of a map}
 
 \item{prediction_plot_con}{The prediction plot of condition1 vs condition2 for a given voxel.}
+
+\item{not_show_legend}{Option for legend of the whole plot}
+
+\item{map_colour}{Colour of the map}
 }
 \value{
 An ggplot object (SPM)
 }
 \description{
-Function which produces SPMs
+Function which produces Statistical Parametric Maps
 }
