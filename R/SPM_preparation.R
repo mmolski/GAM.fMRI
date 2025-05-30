@@ -3,11 +3,12 @@
 #' @param data_gz Main data file (.gz extension) with BOLD signal values.
 #' @param lrt_array The array of p-values of LRT evaluated on model with condition included vs the one without.
 #' @param dfs_model_comp The difference of degrees of freedom between models.
+#' @param mult_test_method The method of p-values adjustment.
 #'
 #' @returns Two data overwritten objects. First with p-values and the other with z-values.
 #' @export
 #'
-SPM_preparation <- \(data_gz, lrt_array, dfs_model_comp = 5) {
+SPM_preparation <- \(data_gz, lrt_array, dfs_model_comp = 5, mult_test_method = "hochberg") {
 
   # Setting the data to the array in nifiti file
   data_gz$setData(lrt_array)
@@ -23,7 +24,7 @@ SPM_preparation <- \(data_gz, lrt_array, dfs_model_comp = 5) {
 
   org_dims <- dim(lrt_array)
   df <- dfs_model_comp
-  lrt_z <- p.adjust(lrt_array, method = "hochberg")
+  lrt_z <- p.adjust(lrt_array, method = mult_test_method)
   lrt_z_adj <- array(lrt_z, dim = org_dims)
 
   # browser()
