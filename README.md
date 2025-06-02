@@ -8,7 +8,7 @@ The goal of GAM.fMRI package is to help researchers achieve better inference on 
 I would highly recommend trying this approach out, if you love seeking neurological truths.
 
 " All models are approximations. **Essentially, all models are wrong, but some are useful.** However, the model must always be borne in mind. "
-***<p style="text-align:center;">George E. P. Box</p>***
+<p align="centre">George E. P. Box</p>
 
 
 ## Installation
