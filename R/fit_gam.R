@@ -7,7 +7,7 @@
 #' @param number_of_knots Basis dimension choice for smooths
 #' @param estimating_method The smoothing parameter estimation method
 #'
-#' @returns List of 4 GAM models. First was fit to data containing condition 1 only, second condition2 only. Next two intake combined data set, once fitted considering conditions and once not.
+#' @returns List of 4 GAM models. First was fit to data containing condition 1 only, second condition 2 only. Next two intake combined data set, once fitted considering conditions and once not.
 #' @export
 #'
 fit_gam <- \(
