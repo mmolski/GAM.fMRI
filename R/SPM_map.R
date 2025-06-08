@@ -41,7 +41,7 @@ SPM_map <- \(data_gz_val,  x, y, z, prediction_plot_con = NULL, not_show_legend 
 
   p_xy <- ggplot(xy_slice_data, aes(x = x, y = y, fill = value)) +
     geom_raster() +
-    scale_fill_viridis_c(option = map_colour, name = legend_name) +
+    scale_fill_viridis_c(option = map_colour, name = "Z-value") +
     geom_point(data = point_data, aes(x = x, y = y),
                color = 'red2', shape = 4, size = 3, stroke = 1.5, inherit.aes = FALSE) +
     labs(title = paste0("Brain slice (Z = ", z, ")"), x = "X", y = "Y") +
@@ -52,7 +52,7 @@ SPM_map <- \(data_gz_val,  x, y, z, prediction_plot_con = NULL, not_show_legend 
 
   p_xz <- ggplot(xz_slice_data, aes(x = x, y = z, fill = value)) +
     geom_raster() +
-    scale_fill_viridis_c(option = map_colour, name = "Z-value") +
+    scale_fill_viridis_c(option = map_colour, name = legend_name) +
     geom_point(data = point_data, aes(x = x, y = z),
                color = 'red2', shape = 4, size = 3, stroke = 1.5, inherit.aes = FALSE) +
     labs(title = paste0("Brain slice (Y = ", y, ")"), x = "X", y = "Z") +
