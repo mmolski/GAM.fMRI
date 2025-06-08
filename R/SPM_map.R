@@ -7,11 +7,12 @@
 #' @param prediction_plot_con The prediction plot of condition1 vs condition2 for a given voxel.
 #' @param not_show_legend Option for legend of the whole plot
 #' @param map_colour Colour of the map
+#' @param legend_name Name of statistic values you use
 #'
 #' @returns An ggplot object (SPM)
 #' @export
 #'
-SPM_map <- \(data_gz_val,  x, y, z, prediction_plot_con = NULL, not_show_legend = NULL, map_colour = "plasma") {
+SPM_map <- \(data_gz_val,  x, y, z, prediction_plot_con = NULL, not_show_legend = NULL, map_colour = "plasma", legend_name = "Z-value") {
 
   # Extracting dimensions
 
@@ -40,7 +41,7 @@ SPM_map <- \(data_gz_val,  x, y, z, prediction_plot_con = NULL, not_show_legend 
 
   p_xy <- ggplot(xy_slice_data, aes(x = x, y = y, fill = value)) +
     geom_raster() +
-    scale_fill_viridis_c(option = map_colour, name = "Z-value") +
+    scale_fill_viridis_c(option = map_colour, name = legend_name) +
     geom_point(data = point_data, aes(x = x, y = y),
                color = 'red2', shape = 4, size = 3, stroke = 1.5, inherit.aes = FALSE) +
     labs(title = paste0("Brain slice (Z = ", z, ")"), x = "X", y = "Y") +
